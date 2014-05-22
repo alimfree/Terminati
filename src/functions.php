@@ -2,10 +2,10 @@
 /**
  * @author Ali <techsupport@brafton.com>
  * @package Terminati
- * Helper functions 
+ * Helper functions to find paths.
  */ 
 /**
- * Retrieves path of uploads directory.
+ * Retrieves path of uploads directory on server.
  * @return $uploads_dir
  */
 function get_uploads_dir(){
@@ -15,6 +15,22 @@ function get_uploads_dir(){
 	return $uploads_dir;
 }		
 
+/**
+ * Returns relative url path of uploads dir
+ * @return String$root;
+ */
+function get_uploads_path(){
+	$root = dirname( $_SERVER['PHP_SELF'] ); 
+	if( strpos( $root, 'src' ) !== false ) 
+		$root = str_replace( '/src', '', $root );
+	$root = $root . '/uploads';
+	return $root;
+}
+
+/**
+ * Returns relative url path of main.css file
+ * @return String $css_path
+ */
 function get_css_path(){
 	$root = dirname($_SERVER['PHP_SELF']);
 
