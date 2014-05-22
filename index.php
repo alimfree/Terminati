@@ -15,9 +15,9 @@
 				<p>Terminati intends to help Brafton keep clients from terminating. Use this elegantly designed tool to frequently check for missing content so our clients don't have to. </p>
 				<h3>Directions</h3>
 				<p>1. Query the client's database for an ids list containing all successfully imported articles<p>
-				<p>2. Download an xml archives history for the client from curator.</p>
-				<p>3. Download the archives xml file containing the missing content.</p>
-				<p>4. Fill out the form on the right.</p>
+				<p>2. Download an xml archives history for the client from <a target="_blank" href="http://curator.brafton.com">Curator</a>.</p>
+				<p>3. Fill out and submit the form on the right. (read carefully)</p>
+				<p>4. Download the resulting archive file or archive zip containing smaller files. 
 				<h4>Bonus</h4>
 				<p>5. Import the missing content to the client's website.</p>
 			</div>
