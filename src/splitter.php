@@ -20,41 +20,42 @@ if( ! class_exists( 'Splitter' ) ){
 		 * @param string $fixedFooter if not null then footer will be this string and not computed
 		 * @return $filename_array array of filenames created
 		 **/
-		function breakIntoFiles( $args ) {
-			 	$boundaryTag = 'newsListItem';
-			 	$filename_index = $args['filename_index'];
-			 	$articles_per_file = intval( $args['articles_per_file'] );
-			 	$xml_string = $args['xml_string'];
-				$xml_array = explode("\n",$xml_string);
-				$article_count = 0; // no.of articles added to xml file. resets to zero each time a file is created
-				$files = $filename_index; // count of files created
-				$length= count($xml_array); 
-				$header = ""; // header block for xml file
-				$footer = "</news>"; // footer block for xml file "its fixed"
-				$article_node = "";  // article_node of xml data to be written into file
-				$filename_array = array(); // array of files created
-				$article_start_tag = false; // true when first boundary tag is found
-				$file_created = false;	 // false if some data has not been written to file
+		function breakIntoFiles( $args ) 
+		{
+		 	$boundaryTag = 'newsListItem';
+		 	$filename_index = $args['filename_index'];
+		 	$articles_per_file = intval( $args['articles_per_file'] );
+		 	$xml_string = $args['xml_string'];
+			$xml_array = explode("\n",$xml_string);
+			$article_count = 0; // no.of articles added to xml file. resets to zero each time a file is created
+			$files = $filename_index; // count of files created
+			$length= count($xml_array); 
+			$header = ""; // header block for xml file
+			$footer = "</news>"; // footer block for xml file "its fixed"
+			$article_node = "";  // article_node of xml data to be written into file
+			$filename_array = array(); // array of files created
+			$article_start_tag = false; // true when first boundary tag is found
+			$file_created = false;	 // false if some data has not been written to file
 
-				//process main data		
-				for ( $i = 0; $i < $length; $i++ ){
+			//process main data		
+			for ( $i = 0; $i < $length; $i++ ){
 
-						$line  = $xml_array[$i];
-					//if the line contains the string "<newsListItem" 
-					if ( strpos(  $line , '&lt;newsListItem' ) !== false ) {
-						//increase article count.
-						$article_count ++; 
-						//We are at the start of an article node.
-						$article_start_tag = true;
-					}
-					//Everything before the first article node 
-					//is the header of each new file	
-					if ( !$article_start_tag )
-						$header .= $line . "\r\n";
-					
-					//Create new files As long as the article count is less than 
-					//number of articles per file
-					if ( $article_count >= $articles_per_file) {
+				$line  = $xml_array[$i];
+				//if the line contains the string "<newsListItem" 
+				if ( strpos(  $line , '&lt;newsListItem' ) !== false ) {
+					//increase article count.
+					$article_count ++; 
+					//We are at the start of an article node.
+					$article_start_tag = true;
+				}
+				//Everything before the first article node 
+				//is the header of each new file	
+				if ( !$article_start_tag )
+					$header .= $line . "\r\n";
+				
+				//Create new files As long as the article count is less than 
+				//number of articles per file
+				if ( $article_count >= $articles_per_file) {
 					$article_count = 0;
 					$files++;
 					$filename =  $files . ".xml";
@@ -68,45 +69,26 @@ if( ! class_exists( 'Splitter' ) ){
 
 					$article_node = $line . "\r\n";
 					$file_created = true;
-					}
-					else {
-						$file_created = false;
-						//push the line onto the article_node.
-						if ( $article_start_tag ){
-							$article_node .= $line . "\r\n";
-						}
-					}
 				}
-				if ( $file_created == false ) {
-					$files++;
-					$filename =  $files . ".xml";
-					$f = fopen($filename, "w");
-					fwrite($f,htmlspecialchars_decode( $header ) );
-					fwrite($f, htmlspecialchars_decode($article_node ) );
-					fclose($f);
-					$filename_array[] = $filename;
-					$file_created = true;
+				else {
+					$file_created = false;
+					//push the line onto the article_node.
+					if ( $article_start_tag )
+						$article_node .= $line . "\r\n";
 				}
-
-				echo 'files: ' . $files .  ' article_count: ' . $article_count;
-				 return $filename_array;
-
-		}				
-		function get_file_name( $publish_date ){
-			$filename = strtotime( 'F-o', $publish_date );
-			return $filename;
-		}
-
-		function get_publish_date( $element ){
-			var_dump( $element );
-			if( strpos( $element, ':' !== false ) ){
-				$date = str_replace( '<publishDate>', '', $element ); 
-				$date = str_replace( '</publishDate>', '', $element ); 
-				return $date;
 			}
-	
-			return false;			
-		}
+			if ( $file_created == false ) {
+				$files++;
+				$filename =  $files . ".xml";
+				$f = fopen($filename, "w");
+				fwrite($f,htmlspecialchars_decode( $header ) );
+				fwrite($f, htmlspecialchars_decode($article_node ) );
+				fclose($f);
+				$filename_array[] = $filename;
+				$file_created = true;
+			}
+			 return $filename_array;
+		}				
 	}
 }
 ?>
