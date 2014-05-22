@@ -7,6 +7,8 @@
  * Reference: http://truelogic.org/wordpress/2012/07/03/split-large-xml-into-parts-before-processing-in-php/
  */
 
+require_once( 'functions.php' );
+
 if( ! class_exists( 'Splitter' ) ){
 	class Splitter {
 
@@ -24,7 +26,7 @@ if( ! class_exists( 'Splitter' ) ){
 		function breakIntoFiles( $args ) 
 		{
 
-			$uploads_dir = $this->get_uploads_dir();
+			$uploads_dir = get_uploads_dir();
 
 		 	$boundaryTag = 'newsListItem';
 		 	$filename_index = $args['filename_index'];
@@ -91,19 +93,9 @@ if( ! class_exists( 'Splitter' ) ){
 				$filename_array[] = $filename;
 				$file_created = true;
 			}
-			 return $filename_array;
-		}
 
-		/**
-		 * Retrieves path of uploads directory.
-		 * @return $uploads_dir
-		 */
-		function get_uploads_dir(){
-			$root = $_SERVER['DOCUMENT_ROOT']; 
-			$app_path = str_replace( '/src', '', dirname($_SERVER['PHP_SELF']) );
-			$uploads_dir = $root . $app_path . '/uploads/';
-			return $uploads_dir;
-		}				
+			 return $filename_array;
+		}			
 	}
 }
 ?>

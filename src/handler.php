@@ -4,7 +4,7 @@
  * @package Terminati
  * 
  * Helper class to manipulate xml file 
- * Accepts an xml file via form submission. 
+ * Includes all methods used by action.php. 
  * 
  * todo: break out longer xml archives files into several shorter ones. 
  * 
@@ -39,12 +39,13 @@ if( ! class_exists( 'XMLHandler' ) ) :
 		 * Int
 		 */
 		public $maxnum; 
+
 		/**
 		 * Receives xml file from upload form.
 		 * @param $file 
 		 * @param $attr 
 		 */
-		function __construct( $xml_file, $attr ){
+		function __construct( $xml_file , $attr ){
 			if( $attr['split'] == 'yes' ) {
 				$this->maxnum = $attr['maxnum'];
 			}
@@ -131,6 +132,10 @@ if( ! class_exists( 'XMLHandler' ) ) :
 			$splitter = new Splitter();
 
 			$filenames = $splitter->breakIntoFiles( $args );
-		}			
+
+			return $filenames;
+		}					
 	}
 endif;
+
+

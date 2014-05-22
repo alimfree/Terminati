@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Ali <techsupport@brafton.com>
- * @package Archives Filter
+ * @package Terminati
  */
 ?>
 <!DOCTYPE html>
