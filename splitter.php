@@ -1,16 +1,18 @@
 <?php 
 /**
+ * @author Ali <techsupport@brafton.com>
  * @package Terminati
  * 
  * Simple class used to split large xml files into smaller files.
- * Ref: http://truelogic.org/wordpress/2012/07/03/split-large-xml-into-parts-before-processing-in-php/
+ * Reference: http://truelogic.org/wordpress/2012/07/03/split-large-xml-into-parts-before-processing-in-php/
  */
 
 if( ! class_exists( 'Splitter' ) ){
 	class Splitter {
 		/**
-		 * Function to break an xml file into several smaller files 
-		 * If the orig xml file is smaller than max size then it will be converted into a single file
+		 * Breaks up an xml file into several smaller files 
+		 * If the original archives xml file is smaller than max size it will be 
+		 * converted into a single file. Tested up to 1k articles.
 		 * @param string $boundaryTag for product boundary tag name
 		 * @param int $filename_index file number to start at 
 		 * @param int articles_per_file how many occurences of the item to break the file at
@@ -24,7 +26,7 @@ if( ! class_exists( 'Splitter' ) ){
 			 	$articles_per_file = intval( $args['articles_per_file'] );
 			 	$xml_string = $args['xml_string'];
 				$xml_array = explode("\n",$xml_string);
-				$items = 0; // no.of lines added to xml file in loop. resets to zero everytime a file is created
+				$article_count = 0; // no.of articles added to xml file. resets to zero each time a file is created
 				$files = $filename_index; // count of files created
 				$length= count($xml_array); 
 				$header = ""; // header block for xml file
@@ -38,17 +40,22 @@ if( ! class_exists( 'Splitter' ) ){
 				for ( $i = 0; $i < $length; $i++){
 
 						$line  = $xml_array[$i];
-
+					//if the line contains the string "<newsListItem" 
 					if ( strpos(  $line , '&lt;newsListItem' ) !== false ) {
-						$items ++;
+						//increase article count.
+						$article_count ++; 
+						//We are at the start of an article node.
 						$article_start_tag = true;
 					}
-					//Everything before the first boundary is the header of each file	
+					//Everything before the first article node 
+					//is the header of each new file	
 					if (!$article_start_tag)
 						$header .= $line . "\r\n";
 					
-					if ( $items >= $articles_per_file) {
-					$items = 0;
+					//Create new files As long as the article count is less than 
+					//number of articles per file
+					if ( $article_count >= $articles_per_file) {
+					$article_count = 0;
 					$files++;
 					$filename =  $files . ".xml";
 
@@ -64,25 +71,22 @@ if( ! class_exists( 'Splitter' ) ){
 					}
 					else {
 						$file_created = false;
+						//push the line onto the article_node.
 						if ( $article_start_tag ){
 							$article_node .= $line . "\r\n";
 						}
 					}
-
-					
 				}
 				if ( $file_created == false ) {
-						$files++;
-						$filename =  $files . ".xml";
-						$f = fopen($filename, "w");
-						fwrite($f,htmlspecialchars_decode( $header ) );
-						fwrite($f, htmlspecialchars_decode($article_node ) );
-						fclose($f);
-						$filename_array[] = $filename;
-						$file_created = true;
-					}
-				echo "files: " . $files . ' items: ' . $items . ' articles_per_file: ' . $articles_per_file;
-
+					$files++;
+					$filename =  $files . ".xml";
+					$f = fopen($filename, "w");
+					fwrite($f,htmlspecialchars_decode( $header ) );
+					fwrite($f, htmlspecialchars_decode($article_node ) );
+					fclose($f);
+					$filename_array[] = $filename;
+					$file_created = true;
+				}
 				 return $filename_array;
 
 		}				
