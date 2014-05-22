@@ -19,11 +19,11 @@ function get_uploads_dir(){
  * Returns relative url path of uploads dir
  * @return String$root;
  */
-function get_uploads_path(){
+function get_archives_path(){
 	$root = dirname( $_SERVER['PHP_SELF'] ); 
 	if( strpos( $root, 'src' ) !== false ) 
 		$root = str_replace( '/src', '', $root );
-	$root = $root . '/uploads';
+	$root = $root . '/brafton-archives.zip';
 	return $root;
 }
 
@@ -46,8 +46,8 @@ function prepare_files( $files_array ){
 
 	$filenames = array();
 	foreach( $files_array  as $file ){
-		$file = '../uploads/' . $file;
-		$filenames[] = $file;
+		$file_path = '../uploads/' . $file;
+		$filenames[$file_path] = $file;
 	}
 	return $filenames;
 }
