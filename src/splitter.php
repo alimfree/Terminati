@@ -37,7 +37,7 @@ if( ! class_exists( 'Splitter' ) ){
 				$file_created = false;	 // false if some data has not been written to file
 
 				//process main data		
-				for ( $i = 0; $i < $length; $i++){
+				for ( $i = 0; $i < $length; $i++ ){
 
 						$line  = $xml_array[$i];
 					//if the line contains the string "<newsListItem" 
@@ -49,7 +49,7 @@ if( ! class_exists( 'Splitter' ) ){
 					}
 					//Everything before the first article node 
 					//is the header of each new file	
-					if (!$article_start_tag)
+					if ( !$article_start_tag )
 						$header .= $line . "\r\n";
 					
 					//Create new files As long as the article count is less than 
@@ -87,6 +87,8 @@ if( ! class_exists( 'Splitter' ) ){
 					$filename_array[] = $filename;
 					$file_created = true;
 				}
+
+				echo 'files: ' . $files .  ' article_count: ' . $article_count;
 				 return $filename_array;
 
 		}				

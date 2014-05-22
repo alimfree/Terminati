@@ -6,7 +6,7 @@
 ?>
 <!DOCTYPE html>
 <html>
-<?php require_once 'header.php' ?>
+<?php require_once 'src/header.php' ?>
 <body>
 	<div class="row" style="margin: 0 0 3em 0;">
     	<div class="col-md-5 main col-md-offset-1">
@@ -23,7 +23,7 @@
 			</div>
 		</div>
 	    <div class="col-md-4 form">
-	    	<form class="form-horizontal center" method="post" action="action.php" enctype= "multipart/form-data">
+	    	<form class="form-horizontal center" method="post" action="src/action.php" enctype= "multipart/form-data">
 				<div class="form-group">
 					<p>Article List: <input type="textarea"  name="articlelist" required="required" placeholder="Enter article id's" /></p>	
 					<p>Break up xml file into several smaller files? <br />

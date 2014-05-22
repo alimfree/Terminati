@@ -15,8 +15,8 @@ if( isset($_FILES['archive'] ) ) {
 	var_dump( $new_xml->asXML() );
 	if( gettype( $new_xml ) == 'object' ){ 
 		$new_xml->asXML( 'archives.xml' ); 
-
-		$filenames = $handler->split_file( $new_xml->asXML() );
+		if( $_POST['split'] == 'yes' )
+			$filenames = $handler->split_file( $new_xml->asXML() );
 		#var_dump( $filenames );
 		#require_once( 'page-success.php' );
 	} else 
