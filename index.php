@@ -27,9 +27,9 @@
 				<div class="form-group">
 					<p>Article List: <input type="textarea"  name="articlelist" required="required" placeholder="Enter article id's" /></p>	
 					<p>Break up xml file into several smaller files? <br />
-						<input type="radio" name="split" 
-						value="yes"  /> Yes
 						<input type="radio" checked="checked" name="split" 
+						value="yes"  /> Yes
+						<input type="radio" name="split" 
 						value="no"> No
 					</p>
 					<p>Articles/File: <input type="number" name="maxnum" placeholder="30" /> </p>

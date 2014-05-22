@@ -1,7 +1,7 @@
 <?php 
 /**
  * @author Ali <techsupport@brafton.com>
- * @package Archives Filter
+ * @package Terminati
  * 
  * Helper class to manipulate xml file 
  * Accepts an xml file via form submission. 

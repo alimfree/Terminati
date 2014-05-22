@@ -9,6 +9,7 @@
 
 if( ! class_exists( 'Splitter' ) ){
 	class Splitter {
+
 		/**
 		 * Breaks up an xml file into several smaller files 
 		 * If the original archives xml file is smaller than max size it will be 
@@ -22,6 +23,9 @@ if( ! class_exists( 'Splitter' ) ){
 		 **/
 		function breakIntoFiles( $args ) 
 		{
+
+			$uploads_dir = $this->get_uploads_dir();
+
 		 	$boundaryTag = 'newsListItem';
 		 	$filename_index = $args['filename_index'];
 		 	$articles_per_file = intval( $args['articles_per_file'] );
@@ -60,7 +64,7 @@ if( ! class_exists( 'Splitter' ) ){
 					$files++;
 					$filename =  $files . ".xml";
 
-					$f = fopen($filename, "w");
+					$f = fopen( $uploads_dir . $filename, "w");
 					fwrite($f, htmlspecialchars_decode( $header ) );
 					fwrite($f, htmlspecialchars_decode( $article_node ) );
 					fwrite($f, $footer);
@@ -80,7 +84,7 @@ if( ! class_exists( 'Splitter' ) ){
 			if ( $file_created == false ) {
 				$files++;
 				$filename =  $files . ".xml";
-				$f = fopen($filename, "w");
+				$f = fopen( $uploads_dir . $filename, "w" );
 				fwrite($f,htmlspecialchars_decode( $header ) );
 				fwrite($f, htmlspecialchars_decode($article_node ) );
 				fclose($f);
@@ -88,6 +92,17 @@ if( ! class_exists( 'Splitter' ) ){
 				$file_created = true;
 			}
 			 return $filename_array;
+		}
+
+		/**
+		 * Retrieves path of uploads directory.
+		 * @return $uploads_dir
+		 */
+		function get_uploads_dir(){
+			$root = $_SERVER['DOCUMENT_ROOT']; 
+			$app_path = str_replace( '/src', '', dirname($_SERVER['PHP_SELF']) );
+			$uploads_dir = $root . $app_path . '/uploads/';
+			return $uploads_dir;
 		}				
 	}
 }
