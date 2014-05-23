@@ -38,7 +38,7 @@ if( isset($_FILES['archive'] ) ) {
 	}
 
 	//delete contents of uploads directory
-	if( uploads_empty() !== false )
+	if( !uploads_empty() )
 		delete_files();
 }
 ?>

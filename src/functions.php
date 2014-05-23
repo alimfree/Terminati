@@ -47,11 +47,12 @@ function delete_files(){
  */
 function uploads_empty(){
 	$uploads_dir = get_uploads_dir();
-	if ( count(glob( $uploads_dir . "/*" ) ) === 0 ){
-		return false;		
+
+	if ( count(glob( $uploads_dir . "*" ) ) === 0 ){
+		return true;		
 	}
 
-	return true;
+	return false;
 }
 
 /**
