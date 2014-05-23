@@ -36,5 +36,9 @@ if( isset($_FILES['archive'] ) ) {
 			require_once( 'page-error.php' );
 		}
 	}
+
+	//delete contents of uploads directory
+	if( uploads_empty() !== false )
+		delete_files();
 }
 ?>
