@@ -28,7 +28,8 @@ For any additional questions. Please reach out to techsupport@brafton.com
 
 ##Credits: 
 http://davidwalsh.name/create-zip-php
-Reference: http://truelogic.org/wordpress/2012/07/03/split-large-xml-into-parts-before-processing-in-php/
+
+http://truelogic.org/wordpress/2012/07/03/split-large-xml-into-parts-before-processing-in-php/
 
 
 
