@@ -25,7 +25,6 @@ if( ! class_exists( 'Splitter' ) ){
 		 **/
 		function breakIntoFiles( $args ) 
 		{
-
 			$uploads_dir = get_uploads_dir();
 
 		 	$boundaryTag = 'newsListItem';

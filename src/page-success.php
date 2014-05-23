@@ -12,7 +12,7 @@ require_once 'functions.php';
 	    	<div class="col-md-10 col-md-offset-1">
 				<h1>Terminati</h1>
 				<div class="description">
-					<p> Scan was successful. We've found a few articles missing from the archival history xml file you submitted.</p>
+					<p> Scan was successful. We've found a few articles missing from the archival history xml file you submitted. Find a zip file containing only those articles below.</p>
 					<a class="btn btn-primary" href="<?php echo get_archives_path(); ?>" download>Download</a>
 				</div>
 			</div>

@@ -22,15 +22,14 @@ if( isset($_FILES['archive'] ) ) {
 			$filenames = $handler->split_file( $new_xml->asXML() );
 			$files = prepare_files( $filenames );
 			$result = create_zip( $files, $uploads_dir . 'brafton-archives.zip', true );			
+			require_once( 'page-success.php' );
 		}
-
-		#var_dump( $filenames );
-		#require_once( 'page-success.php' );
 	} else {
-
-		if( $_POST['split'] == 'yes' ){ 
-			$new_xml = $handler->xml;
+		if( $_POST['split'] == 'yes' ){
+			//split the original file if no articles were deleted. 
+			$new_xml = $handler->xml; 
 			$filenames = $handler->split_file( $new_xml->asXML() );
+			var_dump( $filenames );
 			$files = prepare_files( $filenames );
 			$result = create_zip( $files, $uploads_dir . '../brafton-archives.zip', true );
 			require_once( 'page-error.php' );
